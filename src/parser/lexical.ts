@@ -23,7 +23,7 @@ export const value = new RegExp(`(?:${variable.source}|${literal.source}|${range
 
 // hash related
 export const hash = new RegExp(`(?:${identifier.source})\\s*:\\s*(?:${value.source})`)
-export const hashCapture = new RegExp(`(${identifier.source})\\s*:\\s*(${value.source})`, 'g')
+export const hashCapture = new RegExp(`(${identifier.source})\\s*[:=]\\s*(${value.source})`, 'g')
 
 // full match
 export const tagLine = new RegExp(`^\\s*(${identifier.source})\\s*([\\s\\S]*?)\\s*$`)

@@ -38,6 +38,8 @@ export default {
     ctx.setRegister('blockMode', BlockMode.OUTPUT)
     if (this.with) {
       hash[filepath] = yield new Expression(this.with).evaluate(ctx)
+    } else {
+      hash['include'] = hash
     }
     const templates = yield this.liquid._parseFile(filepath, ctx.opts, ctx.sync)
     ctx.push(hash)

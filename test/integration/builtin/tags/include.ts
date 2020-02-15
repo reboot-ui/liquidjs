@@ -58,13 +58,24 @@ describe('tags/include', function () {
     return expect(html).to.equal('barfoobar')
   })
 
-  it('should support include: hash list', async function () {
-    mock({
-      '/hash.html': '{% assign name="harttle" %}{% include "user.html", role: "admin", alias: name %}',
-      '/user.html': '{{name}} : {{role}} : {{alias}}'
+  describe('should support include: hash list', async function () {
+    it('colon as assignment', async function () {
+      mock({
+        '/hash.html': '{% assign name="harttle" %}{% include "user.html", role: "admin", alias: name %}',
+        '/user.html': '{{name}} : {{role}} : {{alias}}'
+      })
+      const html = await liquid.renderFile('hash.html')
+      return expect(html).to.equal('harttle : admin : harttle')
     })
-    const html = await liquid.renderFile('hash.html')
-    return expect(html).to.equal('harttle : admin : harttle')
+
+    it('equality sign as assignment', async function () {
+      mock({
+        '/hash.html': '{% assign name="harttle" %}{% include "user.html", role="admin", alias=name %}',
+        '/user.html': '{{name}} : {{role}} : {{alias}}'
+      })
+      const html = await liquid.renderFile('hash.html')
+      return expect(html).to.equal('harttle : admin : harttle')
+    })
   })
 
   it('should support include: parent scope', async function () {
@@ -76,13 +87,24 @@ describe('tags/include', function () {
     return expect(html).to.equal('color:yellow, shape:triangle')
   })
 
-  it('should support include: with', async function () {
-    mock({
-      '/with.html': '{% include "color" with "red", shape: "rect" %}',
-      '/color.html': 'color:{{color}}, shape:{{shape}}'
+  describe('should support include: with', async function () {
+    it('colon as assignment', async function () {
+      mock({
+        '/with.html': '{% include "color" with "red", shape: "rect" %}',
+        '/color.html': 'color:{{color}}, shape:{{shape}}'
+      })
+      const html = await liquid.renderFile('with.html')
+      return expect(html).to.equal('color:red, shape:rect')
     })
-    const html = await liquid.renderFile('with.html')
-    return expect(html).to.equal('color:red, shape:rect')
+
+    it('equality sign as assignment', async function () {
+      mock({
+        '/with.html': '{% include "color" with "red", shape="rect" %}',
+        '/color.html': 'color:{{color}}, shape:{{shape}}'
+      })
+      const html = await liquid.renderFile('with.html')
+      return expect(html).to.equal('color:red, shape:rect')
+    })
   })
   it('should support include: with as Drop', async function () {
     class ColorDrop extends Drop {
@@ -189,22 +211,64 @@ describe('tags/include', function () {
       const html = liquid.renderFileSync('/current.html', { name: '/bar/foo.html' })
       return expect(html).to.equal('barfoobar')
     })
-    it('should support include: with', function () {
-      mock({
-        '/with.html': '{% include "color" with "red", shape: "rect" %}',
-        '/color.html': 'color:{{color}}, shape:{{shape}}'
+    describe('should support include: with', function () {
+      it('colon as assignment', async function () {
+        mock({
+          '/with.html': '{% include "color" with "red", shape: "rect" %}',
+          '/color.html': 'color:{{color}}, shape:{{shape}}'
+        })
+        const html = liquid.renderFileSync('with.html')
+        return expect(html).to.equal('color:red, shape:rect')
       })
-      const html = liquid.renderFileSync('with.html')
-      return expect(html).to.equal('color:red, shape:rect')
+  
+      it('equality sign as assignment', async function () {
+        mock({
+          '/with.html': '{% include "color" with "red", shape= "rect" %}',
+          '/color.html': 'color:{{color}}, shape:{{shape}}'
+        })
+        const html = liquid.renderFileSync('with.html')
+        return expect(html).to.equal('color:red, shape:rect')
+      })
     })
-    it('should support filename with extention', function () {
-      mock({
-        '/parent.html': 'X{% include child.html color:"red" %}Y',
-        '/child.html': 'child with {{color}}'
+    describe('should support include: include var when no with', function () {
+      it('colon as assignment', async function () {
+        mock({
+          '/default_include_var.html': '{% include "color" shape: "rect" %}',
+          '/color.html': 'color:{{include.color}}, shape:{{include.shape}}'
+        })
+        const html = liquid.renderFileSync('default_include_var.html')
+        return expect(html).to.equal('color:, shape:rect')
       })
-      const staticLiquid = new Liquid({ dynamicPartials: false, root: '/' })
-      const html = staticLiquid.renderFileSync('parent.html')
-      return expect(html).to.equal('Xchild with redY')
+  
+      it('equality sign as assignment', async function () {
+        mock({
+          '/default_include_var.html': '{% include "color" shape= "rect" %}',
+          '/color.html': 'color:{{include.color}}, shape:{{include.shape}}'
+        })
+        const html = liquid.renderFileSync('default_include_var.html')
+        return expect(html).to.equal('color:, shape:rect')
+      })
+    })
+    describe('should support filename with extention', function () {
+      it('colon as assignment', async function () {
+        mock({
+          '/parent.html': 'X{% include child.html color:"red" %}Y',
+          '/child.html': 'child with {{color}}'
+        })
+        const staticLiquid = new Liquid({ dynamicPartials: false, root: '/' })
+        const html = staticLiquid.renderFileSync('parent.html')
+        return expect(html).to.equal('Xchild with redY')
+      })
+  
+      it('equality sign as assignment', async function () {
+        mock({
+          '/parent.html': 'X{% include child.html color:"red" %}Y',
+          '/child.html': 'child with {{color}}'
+        })
+        const staticLiquid = new Liquid({ dynamicPartials: false, root: '/' })
+        const html = staticLiquid.renderFileSync('parent.html')
+        return expect(html).to.equal('Xchild with redY')
+      })
     })
   })
 })
