@@ -18,9 +18,9 @@
     "coverage-coveralls": "nyc mocha \"test/{unit,integration}/**/*.ts\" && nyc report --reporter=text-lcov | coveralls",
     "build": "rollup -c rollup.config.ts && ls -lh dist",
     "version": "npm run build && npm run docs",
-    "prepublishOnly": "npm run build && npm run glog-reboot && git add -A && npm run gcommit-reboot",
-    "glog-reboot": "git changelog --tag $(git describe --tags) --stdout -p > HISTORY.reboot-ui.md",
-    "gcommit-reboot": "git commit -m\"chore(reboot-release): Release $(git describe --tags)\""
+    "prepublishOnly": "npm run test",
+    "reboot-glog": "git changelog --tag $(git describe --tags) --stdout -p > HISTORY.reboot-ui.md",
+    "reboot-gcommit": "git commit -m\"chore(release): $(git describe --tags)@reboot-ui\""
   },
   "bin": {
     "liquidjs": "./bin/liquid.js",
