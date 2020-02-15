@@ -1,11 +1,25 @@
 # @reboot-ui/liquidjs
 
-**NOTICE** This repo is one fork version for [liquidjs](https://github.com/harttle/liquidjs), only serve for reboot-ui's requirements. If necessary, we are happly to re-contribute feature/bugfix to orignal repo :)
-
-semver of @reboot-ui/liquidjs would keep same `major`/`minor` with the original repo, all synchronization/modification would be reflected in `patch` of version.
-
 [![npm version](https://img.shields.io/npm/v/@reboot-ui/liquidjs.svg)](https://www.npmjs.org/package/@reboot-ui/liquidjs)
 [![downloads](https://img.shields.io/npm/dm/@reboot-ui/liquidjs.svg)](https://www.npmjs.org/package/@reboot-ui/liquidjs)
+
+[liquidjs]:https://github.com/harttle/liquidjs
+[@reboot-ui/liquidjs]:https://www.npmjs.com/package/@reboot-ui/liquidjs
+[`@reboot-ui/liquidjs`]:https://www.npmjs.com/package/@reboot-ui/liquidjs
+
+**NOTICE** This repo is one fork version for [liquidjs], only serve for reboot-ui's requirements. If necessary, we are happly to re-contribute feature/bugfix to orignal repo :)
+
+Semver of @reboot-ui/liquidjs would keep same `major`/`minor` with the original repo, all synchronization/modification would be reflected in `patch` of version.
+
+## WHY?
+
+In some cases, We have to keep same feature of tag `include` with jekyll's, but We found it's impossble unless We modify source code and re-compile [liquidjs], so I fork it, modify it and republish as [`@reboot-ui/liquidjs`].
+
+You can now use tag `include` like in jekyll by using the fork version [`@reboot-ui/liquidjs`].
+
+More features compatible with jekyll might be supported if we really need.
+
+---
 
 # liquidjs
 [![npm version](https://img.shields.io/npm/v/liquidjs.svg)](https://www.npmjs.org/package/liquidjs)
