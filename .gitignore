@@ -17,3 +17,4 @@ demo/*/yarn.json
 .*.swp
 .vscode
 
+package-lock.json

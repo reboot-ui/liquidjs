@@ -1,3 +1,12 @@
+# @reboot-ui/liquidjs
+
+**NOTICE** This repo is one fork version for [liquidjs](https://github.com/harttle/liquidjs), only serve for reboot-ui's requirements. If necessary, we are happly to re-contribute feature/bugfix to orignal repo :)
+
+semver of @reboot-ui/liquidjs would keep same `major`/`minor` with the original repo, all synchronization/modification would be reflected in `patch` of version.
+
+[![npm version](https://img.shields.io/npm/v/@reboot-ui/liquidjs.svg)](https://www.npmjs.org/package/@reboot-ui/liquidjs)
+[![downloads](https://img.shields.io/npm/dm/@reboot-ui/liquidjs.svg)](https://www.npmjs.org/package/@reboot-ui/liquidjs)
+
 # liquidjs
 [![npm version](https://img.shields.io/npm/v/liquidjs.svg)](https://www.npmjs.org/package/liquidjs)
 [![downloads](https://img.shields.io/npm/dm/liquidjs.svg)](https://www.npmjs.org/package/liquidjs)
